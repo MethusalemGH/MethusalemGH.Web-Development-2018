@@ -1,0 +1,30 @@
+{
+  "name": "methusalemgh.web-development-2018",
+  "version": "1.0.0",
+  "description": "Web Development Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MethusalemGH/MethusalemGH.Web-Development-2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MethusalemGH/MethusalemGH.Web-Development-2018/issues"
+  },
+  "homepage": "https://github.com/MethusalemGH/MethusalemGH.Web-Development-2018#readme",
+  "dependencies": {
+    "eslint": "~4.18.0",
+    "eslint-config-standard": "11.0.0",
+    "eslint-config-standard-jsx": "5.0.0",
+    "eslint-plugin-import": "~2.8.0",
+    "eslint-plugin-node": "~6.0.0",
+    "eslint-plugin-promise": "~3.6.0",
+    "eslint-plugin-react": "~7.6.1",
+    "eslint-plugin-standard": "~3.0.1",
+    "standard-engine": "~8.0.0"
+  }
+}
