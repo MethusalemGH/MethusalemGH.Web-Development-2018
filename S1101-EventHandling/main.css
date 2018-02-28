@@ -1,0 +1,13 @@
+html, body {
+  height: 100%;
+}
+
+.jumbotron-full {
+  height: 100%;
+  padding: 1.5rem 1rem;
+  margin-bottom: 0;
+}
+
+.done, .done:hover {
+  text-decoration: line-through;
+}
