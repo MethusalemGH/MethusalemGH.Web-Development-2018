@@ -7,7 +7,7 @@ const styleInput = 'pa2 input-reset ba bg-transparent hover-bg-white hover-black
 const styleSignIn = 'b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib';
 
 class Register extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       signInName: '',
@@ -18,22 +18,22 @@ class Register extends React.Component {
 
   render = () => {
     return (
-      <div className={styleForm} style={{backgroundColor:'rgb(112, 176, 255)'}}>
+      <div className={styleForm} style={{ backgroundColor: 'rgb(112, 176, 255)' }}>
         <main className={'pa4 black-80'}>
           <div className={'measure center'}>
             <fieldset id='sign_up' className={'ba b--transparent ph0 mh0'}>
               <legend className={'f3 fw6 ph0 mh0'}>Register</legend>
               <div className={'mt3'}>
                 <label className={styleLabel} htmlFor='user-name'>User Name</label>
-                <input className={styleInput} type='text' name='user-name'  id='user-name' onChange={this.onNameChange} />
+                <input className={styleInput} type='text' name='user-name' id='user-name' onChange={this.onNameChange} />
               </div>
               <div className={'mt3'}>
                 <label className={styleLabel} htmlFor='email-address'>Email</label>
-                <input className={styleInput} type='email' name='email-address'  id='email-address' onChange={this.onEmailChange} />
+                <input className={styleInput} type='email' name='email-address' id='email-address' onChange={this.onEmailChange} />
               </div>
               <div className={'mv3'}>
                 <label className={styleLabel} htmlFor='password'>Password</label>
-                <input className={styleInput} type='password' name='password'  id='password' onChange={this.onPasswordChange} />
+                <input className={styleInput} type='password' name='password' id='password' onChange={this.onPasswordChange} />
               </div>
             </fieldset>
             <div className={''}>
@@ -60,14 +60,14 @@ class Register extends React.Component {
   onSubmitRegister = () => {
     const connection = this.props.connection;
     fetch(`${connection.url}:${connection.port}/register`, {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: this.state.signInName,
-          email: this.state.signInEmail,
-          password: this.state.signInPassword
-        })
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.state.signInName,
+        email: this.state.signInEmail,
+        password: this.state.signInPassword
       })
+    })
       .then((response) => response.json())
       .then((user) => {
         console.log(user);

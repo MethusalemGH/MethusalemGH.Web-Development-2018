@@ -6,8 +6,8 @@ const cors = require(`cors`);
 const knex = require(`knex`)({
   client: 'pg',
   connection: {
-    host: process.env.IP,
-    user: 'ubuntu',
+    host: 'localhost',
+    user: 'postgres',
     password: 'postgres',
     database: 'smart-brain'
   }
@@ -116,8 +116,9 @@ app.put('/image', (req, res) => {
   res.status(response.status).json(response.message);
 });
 
-
 // Tell Express to listen for requests (start server)
-app.listen(process.env.PORT, process.env.IP, () => {
-  console.log(`Server has started! Listening at PORT ${process.env.PORT}, IP ${process.env.IP}.`);
+const expressIP = 'localhost';
+const expressPort = 3001;
+app.listen(expressPort, expressIP, () => {
+  console.log(`Server has started! Listening at PORT ${expressPort}, IP ${expressIP}.`);
 });
