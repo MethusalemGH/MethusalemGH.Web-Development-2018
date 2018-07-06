@@ -9,7 +9,7 @@ class ImageLinkForm extends React.Component {
     return (
       <div className='ImageLinkForm'>
         <p className='f4 ph2'>{'Smart Brain will detect faces in your pictures. Enter an image URL ...'}</p>
-        <div className='f5 center w-90 w-75-m w-60-ns pa4 br3 shadow-5' style={{backgroundColor:'rgb(112, 176, 255)'}}>
+        <div className='f5 center w-90 w-75-m w-60-ns pa4 br3 shadow-5' style={{ backgroundColor: 'rgb(112, 176, 255)' }}>
           <input type='text' className='ph2 pv2 center w-100 w-70-ns' id='textImage'
             onChange={this.props.onInputChange}
             onKeyPress={event => event.key === 'Enter' ? this.props.onButtonClick() : null}

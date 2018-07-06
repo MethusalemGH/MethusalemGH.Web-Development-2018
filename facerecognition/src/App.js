@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -11,13 +12,13 @@ import FaceRecognition from './Components/ImageRecognition';
 import fetch from 'isomorphic-fetch';
 import 'tachyons';
 import './App.css';
+/* eslint-enable */
 
-const urlApp = 'http://web-development-cloud9-danilolax.c9users.io';
-const portApp = 8080;
+const urlApp = 'http://localhost';
+const portApp = 3001;
 
 class App extends React.Component {
-
-  constructor() {
+  constructor () {
     super();
     this.state = {
       // input: 'https://samples.clarifai.com/face-det.jpg',
@@ -34,38 +35,38 @@ class App extends React.Component {
         email: '',
         entries: 0,
         joined: {}
-      },
+      }
     };
   }
 
   render = () => {
     return (
-      <div className = 'App' >
-        <Particles params={particleOptions} className='particles'/>
+      <div className='App' >
+        <Particles params={particleOptions} className='particles' />
         <div className='flex'>
           <Logo />
-          {this.state.route === 'home' ? <Navigation onRouteChange={this.onRouteChange}/> : null }
+          {this.state.route === 'home' ? <Navigation onRouteChange={this.onRouteChange} /> : null}
         </div>
-        { this.state.route === 'home'
+        {this.state.route === 'home'
           ? <div>
-              <Ranking name={this.state.user.name} entries={this.state.user.entries} />
-              <ImageLinkForm onInputChange={this.onInputChange} onButtonClick={this.onButtonClick} imageURL={this.state.input} />
-              <FaceRecognition imageURL={this.state.input} box={this.state.box} />
-            </div>
+            <Ranking name={this.state.user.name} entries={this.state.user.entries} />
+            <ImageLinkForm onInputChange={this.onInputChange} onButtonClick={this.onButtonClick} imageURL={this.state.input} />
+            <FaceRecognition imageURL={this.state.input} box={this.state.box} />
+          </div>
           : this.state.route === 'signin'
             ? <div>
-                <SignIn onRouteChange={this.onRouteChange} connection={this.state.connection} loadUser={this.loadUser} />
-              </div>
+              <SignIn onRouteChange={this.onRouteChange} connection={this.state.connection} loadUser={this.loadUser} />
+            </div>
             : <div>
-                <Register onRouteChange={this.onRouteChange} connection={this.state.connection} loadUser={this.loadUser} />
-              </div>
+              <Register onRouteChange={this.onRouteChange} connection={this.state.connection} loadUser={this.loadUser} />
+            </div>
         }
       </div>
     );
   }
 
-  componentDidMount() {
-    window.addEventListener("resize", this.hideFaceBox.bind(this));
+  componentDidMount = () => {
+    window.addEventListener('resize', this.hideFaceBox.bind(this));
 
     const connection = this.state.connection;
     fetch(`${connection.url}:${connection.port}`)
@@ -73,8 +74,8 @@ class App extends React.Component {
       .then((data) => console.log(data));
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.hideFaceBox.bind(this));
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.hideFaceBox.bind(this));
   }
 
   // Message Handlers
@@ -90,19 +91,19 @@ class App extends React.Component {
       .then(response => {
         if (response !== null) {
           fetch(`${this.state.connection.url}:${this.state.connection.port}/image`, {
-              method: 'put',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                id: this.state.user.id
-              })
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: this.state.user.id
             })
+          })
             .then((response) => response.json())
             .then((entries) => {
               console.log(entries);
               this.setState(Object.assign(this.state.user, { entries: entries }));
             });
         }
-        this.displayFaceBox(this.calculateFaceLocation(response.outputs["0"].data.regions[0]));
+        this.displayFaceBox(this.calculateFaceLocation(response.outputs['0'].data.regions[0]));
       })
 
       .catch(err => console.log(err));
