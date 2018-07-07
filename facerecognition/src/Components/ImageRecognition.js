@@ -3,9 +3,9 @@ import './ImageRecognition.css';
 
 class ImageRecognition extends React.Component {
   render = () => {
-    const faceBoxes = this.props.boxes.map((box) => {
+    const faceBoxes = this.props.boxes.map((box, cnt = 0) => {
       return (box && box.left > 0.0)
-        ? <div className='bounding-box mt2 ba' style={{ top: box.top, right: box.right, bottom: box.bottom, left: box.left }}></div>
+        ? <div className='bounding-box mt2 ba' style={{ top: box.top, right: box.right, bottom: box.bottom, left: box.left }} key={`Face_${cnt++}`}></div>
         : null;
     });
     return (
