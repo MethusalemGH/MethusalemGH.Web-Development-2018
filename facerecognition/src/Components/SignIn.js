@@ -7,7 +7,7 @@ const styleInput = 'pa2 input-reset ba bg-transparent hover-bg-white hover-black
 const styleSignIn = 'b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib';
 
 class SignIn extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       signInEmail: '',
@@ -64,7 +64,6 @@ class SignIn extends React.Component {
       .then((response) => response.json())
       .then((user) => {
         if (user.id > 0) {
-          console.log(user);
           this.props.loadUser(user);
           this.props.onRouteChange('home');
         }
