@@ -18,9 +18,9 @@ const urlApp = 'http://localhost';
 const portApp = 3001;
 
 const defaultState = {
-  // input: 'https://samples.clarifai.com/face-det.jpg',
-  input: 'http://images.indianexpress.com/2016/04/stana-katic-759.jpg',
-  box: {},
+  input: 'https://samples.clarifai.com/face-det.jpg',
+  // input: 'http://images.indianexpress.com/2016/04/stana-katic-759.jpg',
+  boxes: [],
   route: 'signin',
   connection: {
     url: urlApp,
@@ -53,7 +53,7 @@ class App extends React.Component {
           ? <div>
             <Ranking name={this.state.user.name} entries={this.state.user.entries} />
             <ImageLinkForm onInputChange={this.onInputChange} onButtonClick={this.onButtonClick} imageURL={this.state.input} />
-            <FaceRecognition imageURL={this.state.input} box={this.state.box} />
+            <FaceRecognition imageURL={this.state.input} boxes={this.state.boxes} />
           </div>
           : this.state.route === 'signin'
             ? <div>
@@ -83,6 +83,7 @@ class App extends React.Component {
 
   onButtonClick = () => {
     const app = new Clarifai.App({ apiKey: 'cd21979a4dad41eb9f0a4e6eff58d4ab' });
+    var boxes = [];
 
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
@@ -96,11 +97,14 @@ class App extends React.Component {
           })
             .then((response) => response.json())
             .then((entries) => {
-              console.log(entries);
               this.setState(Object.assign(this.state.user, { entries: entries }));
             });
         }
-        this.displayFaceBox(this.calculateFaceLocation(response.outputs['0'].data.regions[0]));
+        const faces = response.outputs['0'].data.regions;
+        faces.forEach((face) => {
+          boxes.push(this.calculateFaceLocation(face));
+        });
+        this.displayFaceBoxes(boxes);
       })
 
       .catch(err => console.log(err));
@@ -112,10 +116,8 @@ class App extends React.Component {
 
   // private functions
   calculateFaceLocation = (region) => {
-    console.log(this.state.input);
     const image = document.getElementById('inputImage');
     const sizeImage = { width: Number(image.width), height: Number(image.height) };
-    console.log(`Image: (${sizeImage.width} x ${sizeImage.height})`);
 
     const faceBox = region.region_info.bounding_box;
     return {
@@ -126,11 +128,8 @@ class App extends React.Component {
     };
   }
 
-  displayFaceBox = (faceBox, index = 0) => {
-    this.setState({ box: faceBox }, () => {
-      const box = this.state.box;
-      console.log(`[${index}] top: ${box.top} left: ${box.left} bottom: ${box.bottom} right: ${box.right}`);
-    });
+  displayFaceBoxes = (faceBoxes) => {
+    this.setState({ boxes: faceBoxes });
   }
 
   hideFaceBox = () => {
