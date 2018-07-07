@@ -17,26 +17,28 @@ import './App.css';
 const urlApp = 'http://localhost';
 const portApp = 3001;
 
+const defaultState = {
+  // input: 'https://samples.clarifai.com/face-det.jpg',
+  input: 'http://images.indianexpress.com/2016/04/stana-katic-759.jpg',
+  box: {},
+  route: 'signin',
+  connection: {
+    url: urlApp,
+    port: portApp
+  },
+  user: {
+    id: 0,
+    name: '',
+    email: '',
+    entries: 0,
+    joined: {}
+  }
+};
+
 class App extends React.Component {
   constructor () {
     super();
-    this.state = {
-      // input: 'https://samples.clarifai.com/face-det.jpg',
-      input: 'http://images.indianexpress.com/2016/04/stana-katic-759.jpg',
-      box: {},
-      route: 'signin',
-      connection: {
-        url: urlApp,
-        port: portApp
-      },
-      user: {
-        id: 0,
-        name: '',
-        email: '',
-        entries: 0,
-        joined: {}
-      }
-    };
+    this.state = defaultState;
   }
 
   render = () => {
@@ -67,11 +69,6 @@ class App extends React.Component {
 
   componentDidMount = () => {
     window.addEventListener('resize', this.hideFaceBox.bind(this));
-
-    const connection = this.state.connection;
-    fetch(`${connection.url}:${connection.port}`)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
   }
 
   componentWillUnmount = () => {
